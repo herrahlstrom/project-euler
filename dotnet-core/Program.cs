@@ -8,8 +8,6 @@ namespace ProjectEuler
         {
             var answer = new Problem40().Run();
             Console.WriteLine("Answer: " + answer);
-            Console.ReadLine();
-
         }
     }
 }
