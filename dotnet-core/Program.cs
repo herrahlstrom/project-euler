@@ -6,7 +6,7 @@ namespace ProjectEuler
     {
         public static void Main(string[] args)
         {
-            var answer = new Problem40().Run();
+            var answer = new Problem41().Run();
             Console.WriteLine("Answer: " + answer);
         }
     }
