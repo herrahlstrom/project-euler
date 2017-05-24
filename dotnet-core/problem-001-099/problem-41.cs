@@ -4,32 +4,30 @@ using System.Linq;
 
 namespace ProjectEuler
 {
-    public class Problem41
-    {
-        Prime primeTester = new Prime();
-        public long Run()
-        {
-            var values = from str in StringOperations.Permute("0123456789")
-                         let value = long.Parse(str)
-                         //where primeTester.IsPrime(value)
-                         select value;
+	public class Problem41
+	{
+		Prime primeTester = new Prime();
+		public long Run()
+		{
+			List<long> values = new List<long>();
 
-            //Console.WriteLine("IsPrime: " + primeTester.IsPrime(37));
+			for (int n = 1; n <= 9; n += 1)
+			{
+				values.AddRange(from str in StringOperations.Permute("123456789".Substring(0, n))
+								let value = long.Parse(str)
+								where primeTester.IsPrime(value)
+								select value);
+			}
 
-            long highest = 0;
-            foreach (long value in values)
-            {
-                if (primeTester.IsPrime(value))
-                {
-                    Console.WriteLine("IsPrime: " + value);
-                }
-                //Console.WriteLine(value);
-                if (value > highest)
-                {
-                    highest += 1;// value;
-                }
-            }
-            return highest;
-        }
-    }
+			long highest = 0;
+			foreach (long value in values)
+			{
+				if (value > highest)
+				{
+					highest = value;
+				}
+			}
+			return highest;
+		}
+	}
 }
