@@ -1,65 +1,95 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Prime
+public class Prime:IDisposable
 {
-    private HashSet<long> _primes = new HashSet<long> { 2, 3, 5, 7, 11, 13, 17, 19 };
-    private long _highestTestedValue = 19;
-    public bool IsPrime(long value)
-    {
-        // Eleminates most of the cases
-        if (value == 2 || value == 3)
-        {
-            return true;
-        }
-        else if (value % 2 == 0 || value % 3 == 0)
-        {
-            Console.WriteLine("hmm...:" + value);
-            return false;
-        }
+	private HashSet<long> _primes;
+	private long _highestTestedValue;
+	public Prime() : this(19)
+	{ }
+	public Prime(long initUpperValue)
+	{
+		_primes = new HashSet<long>(ESieve(initUpperValue));
+		_highestTestedValue = initUpperValue;
+	}
+	public bool IsPrime(long value)
+	{
+		if (value <= _highestTestedValue)
+		{
+			return _primes.Contains(value);
+		}
+		else if (IsDevidedBy3(value))
+		{
+			return false;
+		}
+		else if (_primes.Any(x => value % x == 0))
+		{
+			return false;
+		}
+		else
+		{
+			foreach (long prime in ESieve(value).Skip(_primes.Count))
+			{
+				_primes.Add(prime);
+			}
+			_highestTestedValue = value;
 
-        Console.WriteLine("IsPrime(" + value + ")");
+			return _primes.Contains(value);
+		}
+	}
 
-        if (value <= _highestTestedValue)
-        {
-            return _primes.Contains(value);
-        }
-        else if (_primes.Any(x => value % x != 0))
-        {
-            return false;
-        }
-        else
-        {
-            TestPrimes(value);
-            return _primes.Contains(value);
-        }
-    }
-    private void TestPrimes(long until)
-    {
-        Console.WriteLine("TestPrimes(" + until + ")");
+	/// <summary>
+	/// A quick "old-school" trick to determine if a value is devided by 3.
+	/// a number is divisible by 3 if and only if the digit sum of the number is divisible by 3.
+	/// </summary>
+	private bool IsDevidedBy3(long value)
+	{
+		long sum = 0;
+		while (value > 0)
+		{
+			sum += value % 10;
+			value = value / 10;
+		}
+		return (sum % 3 == 0);
+	}
+	public static IEnumerable<long> ESieve(long upperLimit)
+	{
+		long sieveBound = (upperLimit - 1) / 2;
+		long upperSqrt = ((long)Math.Sqrt(upperLimit) - 1) / 2;
 
-        long testValue = _highestTestedValue + 1;
+		bool[] bits = new bool[sieveBound + 1];
+		for (long i = 0; i < bits.Length; i += 1)
+		{
+			bits[i] = true;
+		}
 
-        if (testValue % 2 == 0)
-        {
-            testValue += 1;
-        }
+		for (int i = 1; i <= upperSqrt; i++)
+		{
+			if (bits[i])
+			{
+				for (int j = i * 2 * (i + 1); j <= sieveBound; j += 2 * i + 1)
+				{
+					bits[j] = false;
+				}
+			}
+		}
 
-        lock (_primes)
-        {
-            while (testValue <= until)
-            {
-                bool isPrime = _primes.All(x => testValue % x != 0);
-                if (isPrime)
-                {
-                    Console.WriteLine($"New prime: {testValue}");
-                    _primes.Add(testValue);
-                }
-                _highestTestedValue = testValue;
-                testValue += 2;
-            }
-        }
+		yield return 2;
 
-    }
+		for (int i = 1; i <= sieveBound; i++)
+		{
+			if (bits[i])
+			{
+				yield return 2 * i + 1;
+			}
+		}
+	}
+
+	public void Dispose()
+	{
+		_primes.Clear();
+		_highestTestedValue = 0;
+	}
 }
