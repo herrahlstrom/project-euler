@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace ProjectEuler
 {
-	public class Problem41: IProblem
+	public class P041: IProblem
 	{
 		Prime primeTester = new Prime();
 		public long Run()

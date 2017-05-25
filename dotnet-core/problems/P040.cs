@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace ProjectEuler
 {
-	public class Problem40 : IProblem
+	public class P040 : IProblem
 	{
 		public long Run()
 		{
