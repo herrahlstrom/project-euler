@@ -4,9 +4,12 @@ using System.Text;
 
 namespace ProjectEuler
 {
-	class problem42
+	class problem42: IProblem
 	{
-		public in
+		public long Run()
+		{
+			return 5;
+		}
 		private IEnumerable<int> GetTriangleNumbers()
 		{
 			int n = 1;
