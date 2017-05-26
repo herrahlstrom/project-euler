@@ -18,11 +18,12 @@ namespace ProjectEuler
 								 orderby id descending
 								 select (IProblem)Activator.CreateInstance(t)).First();
 
+			Console.WriteLine("Project Euler - " + oProblem.GetType().Name.ToString());
+			
 			Stopwatch sw = Stopwatch.StartNew();
 			var answer = oProblem.Run();
 			sw.Stop();
 
-			Console.WriteLine("Project Euler - " + oProblem.GetType().Name.ToString());
 			Console.WriteLine("Answer: " + answer);
 			Console.WriteLine(sw.ElapsedMilliseconds + " ms");
 
