@@ -22,6 +22,7 @@ namespace ProjectEuler
 			var answer = oProblem.Run();
 			sw.Stop();
 
+			Console.WriteLine("Project Euler - " + oProblem.GetType().Name.ToString());
 			Console.WriteLine("Answer: " + answer);
 			Console.WriteLine(sw.ElapsedMilliseconds + " ms");
 
