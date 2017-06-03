@@ -13,9 +13,9 @@ class Prime:
             self.highestprime = self.primes[-1]
         return value in self.primes
     
-    def get_primes(upper):
-        sieveBound = (int(upper-1))//2
-        upperSqrt = (int(upper**0.5)-1)//2
+    def get_primes(until):
+        sieveBound = (int(until-1))//2
+        upperSqrt = (int(until**0.5)-1)//2
         bits = [True]*(sieveBound+1)
         for i in range(1, upperSqrt+1):
             if bits[i]:
