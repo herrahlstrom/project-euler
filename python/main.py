@@ -1,16 +1,19 @@
-﻿def get_triangle(n):
+﻿import time
+
+
+def get_triangle(n):
     return n * (n + 1) // 2
 def get_pentagonal(n):
     return n * (3 * n - 1) // 2
 def get_hexagonal(n):
     return n * (2 * n - 1)
 
-def main():
+def get_answer():
     t = (1, get_triangle(1))
     p = (1, get_pentagonal(1))
     h = (1, get_hexagonal(1))
-    hits = 0
-    
+    hits = 0    
+
     while True:
         if t[1] <= p[1] and t[1] <= h[1]:
             t = (t[0] + 1, get_triangle(t[0] + 1))
@@ -21,12 +24,16 @@ def main():
         else:
             raise Exception("Something is wrong with math!")
         if t[1] == p[1] and t[1] == h[1]:
-            print("T:{0}  P:{1}  H:{2}".format(t[0], p[0], h[0]))
-            print("Value", t[1])
-            print()
             hits += 1
-            if hits >= 2:
-                break
+            if hits == 2:
+                return t[1]
+
+def main():
+    start = time.time()
+    answer = get_answer()
+    end = time.time()
+    print("Answer: {0}".format(answer))
+    print("{0:.0f} ms".format((end-start)*1000))
 
 if __name__ == "__main__":
 	main();
