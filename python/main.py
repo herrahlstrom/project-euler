@@ -1,39 +1,33 @@
-﻿import time
+﻿from prime import Prime
 
-
-def get_triangle(n):
-    return n * (n + 1) // 2
-def get_pentagonal(n):
-    return n * (3 * n - 1) // 2
-def get_hexagonal(n):
-    return n * (2 * n - 1)
+def test_value(value, p):
+    for n in range(value - 2, 1, -1):
+        if not p.is_prime(n):
+            continue
+        m = 0
+        while True:
+            m+=1
+            s = n + 2 * (m ** 2)
+            if s > value:
+                break
+            if s == value:
+                return True
+    return False
 
 def get_answer():
-    t = (1, get_triangle(1))
-    p = (1, get_pentagonal(1))
-    h = (1, get_hexagonal(1))
-    hits = 0    
-
+    p = Prime()
+    
+    i = 1
     while True:
-        if t[1] <= p[1] and t[1] <= h[1]:
-            t = (t[0] + 1, get_triangle(t[0] + 1))
-        elif p[1] <= t[1] and p[1] <= h[1]:
-            p = (p[0] + 1, get_pentagonal(p[0] + 1))
-        elif h[1] <= p[1] and h[1] <= t[1]:
-            h = (h[0] + 1, get_hexagonal(h[0] + 1))
-        else:
-            raise Exception("Something is wrong with math!")
-        if t[1] == p[1] and t[1] == h[1]:
-            hits += 1
-            if hits == 2:
-                return t[1]
+        i+=2
+        if p.is_prime(i):
+            continue
+        if test_value(i, p):
+            continue
+        return i
 
 def main():
-    start = time.time()
-    answer = get_answer()
-    end = time.time()
-    print("Answer: {0}".format(answer))
-    print("{0:.0f} ms".format((end-start)*1000))
+    print("Answer: {0}".format(get_answer()))
 
 if __name__ == "__main__":
 	main();
