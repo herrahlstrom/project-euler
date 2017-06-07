@@ -15,8 +15,9 @@ class Prime:
         
     def get_primes(until):
         a = [True] * until
-        a[0] = a[1] = False
-        for i in range(2, int(len(a) ** 0.5) + 1):
+        a[0] = False
+        a[1] = False;
+        for i in range(2, until):
             if a[i]:
                 yield i
                 j = i * 2    
