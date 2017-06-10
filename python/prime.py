@@ -16,20 +16,21 @@ class Prime:
                     j += i
 
     def is_prime(self, value):
-        if value == 1:
-            return True
-        if value < 1:
+        if value < 2:
             raise ValueError("Invalid number to test for prime")
-        if self.__primes_max < value:
-            max = value * 3
-            self.__primes = list(Prime.get_primes(max))
-            self.__primes_max = max
+        self.__ensure_primes(value)
         return value in self.__primes
 
-    def get_prime_factors(value):
-        primes = list(Prime.get_primes(value))
-        min = 0
-        for p in primes:
+    def get_prime_factors(self, value):
+        self.__ensure_primes(value)
+        for p in self.__primes:
             while value % p == 0:
                 yield p
                 value = value // p
+            if value < 2:
+                break
+
+    def __ensure_primes(self, until):
+        if self.__primes_max < until:
+            self.__primes = list(Prime.get_primes(until * 2))
+            self.__primes_max = until * 2
