@@ -16,7 +16,7 @@ class Prime:
     def get_primes(until):
         a = [True] * until
         a[0] = False
-        a[1] = False;
+        a[1] = False
         for i in range(2, until):
             if a[i]:
                 yield i
@@ -24,3 +24,19 @@ class Prime:
                 while j < len(a):
                     a[j] = False
                     j += i
+
+    def get_prime_factors(value):
+        
+        p1 = get_primes(5)
+        p2 = (get_primes(5))
+        p3 = [get_primes(5)]
+
+        primes = [get_primes(values)]
+        min = 0
+        while value > 1:
+            for i in range(min, len(primes)):
+                if value % primes[i] == 0:
+                    yield primes[i]
+                    value = value // primes[i]
+                else:
+                    min += 1
