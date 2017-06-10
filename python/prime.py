@@ -14,13 +14,21 @@ class Prime:
         return value in self.primes
         
     def get_primes(until):
-        a = [True] * until
+        a = [True] * (until+1)
         a[0] = False
-        a[1] = False;
-        for i in range(2, until):
+        a[1] = False
+        for i in range(2, len(a)):
             if a[i]:
                 yield i
                 j = i * 2    
                 while j < len(a):
                     a[j] = False
                     j += i
+
+    def get_prime_factors(value):
+        primes = list(Prime.get_primes(value))
+        min = 0
+        for p in primes:
+            while value % p == 0:
+                yield p
+                value = value // p
