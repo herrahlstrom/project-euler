@@ -3,3 +3,5 @@
 
 dotnet/bin/
 dotnet/obj/
+
+python/__pycache__/
