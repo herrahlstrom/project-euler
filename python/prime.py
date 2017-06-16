@@ -12,21 +12,12 @@ class Prime:
         self.__primes = [2, 3, 5, 7, 11, 13, 17, 19]
         self.__primes_max = 19
 
-    @staticmethod
-    def get_primes(until):
+    def get_primes(self, until):
         """
         List all primes from 2 to a specified value
         """
-        primemap = [True] * (until + 1)
-        primemap[0] = False
-        primemap[1] = False
-        for i in range(2, len(primemap)):
-            if primemap[i]:
-                yield i
-                j = i * 2
-                while j < len(primemap):
-                    primemap[j] = False
-                    j += i
+        self.__ensure_primes(until)
+        return [x for x in self.__primes if x <= until]
 
     def is_prime(self, value):
         """
@@ -51,5 +42,20 @@ class Prime:
 
     def __ensure_primes(self, until):
         if self.__primes_max < until:
-            self.__primes = list(Prime.get_primes(self, until * 2))
+            print("new prime list")
+            self.__primes = list(Prime.__get_primes(until * 2))
             self.__primes_max = until * 2
+
+
+    @staticmethod
+    def __get_primes(until):
+        primemap = [True] * (until + 1)
+        primemap[0] = False
+        primemap[1] = False
+        for i in range(2, len(primemap)):
+            if primemap[i]:
+                yield i
+                j = i * 2
+                while j < len(primemap):
+                    primemap[j] = False
+                    j += i
