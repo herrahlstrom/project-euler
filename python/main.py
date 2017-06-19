@@ -3,8 +3,7 @@ Generic solutions for Project eurler
 https://projecteuler.net
 """
 
-from prime import Prime
-from utils import ListUtil
+from eulerutils import *
 
 def get_answer():
     """
@@ -12,10 +11,9 @@ def get_answer():
     """
 
     ptester = Prime()
-    lutil = ListUtil()
 
     for a in [x for x in ptester.get_primes(9999) if x >= 1000]:
-        a_permutations = [int(x) for x in lutil.permute(str(a))]
+        a_permutations = [int(x) for x in permute_list(str(a))]
         for delta in range(1, 9999):
             b = a + delta
             c = b + delta
