@@ -1,7 +1,18 @@
 """
-prime.py
+Generic helpers for Project Euler
 """
 
+def permute_list(inputlist):
+    """
+    Create all permutations of a given list (include strings)
+    """
+    if len(inputlist) <= 1:
+        yield inputlist
+    else:
+        chunk = inputlist[0]
+        for item in permute_list(inputlist[1:]):
+            for i in range(0, len(item)+1):
+                yield item[0:i] + chunk + item[i:]
 
 class Prime:
     """
@@ -42,7 +53,6 @@ class Prime:
 
     def __ensure_primes(self, until):
         if self.__primes_max < until:
-            print("new prime list")
             self.__primes = list(Prime.__get_primes(until * 2))
             self.__primes_max = until * 2
 
