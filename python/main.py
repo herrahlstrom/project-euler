@@ -3,30 +3,41 @@ Generic solutions for Project eurler
 https://projecteuler.net
 """
 
-from eulerutils import *
+#pylint:disable=C0103,C0111,W0622
+
+from eulerutils import Prime, Stopwatch
 
 def get_answer():
-    """
-    Calculate the answer for the current problem
-    """
+    max = 99#9999
 
-    ptester = Prime()
+    primer = Prime(max)
+    primes = primer.get_primes(max)
+    primesums = len(primes) * [0]
+    result_sum = 0
+    result_length = 0
 
-    for a in [x for x in ptester.get_primes(9999) if x >= 1000]:
-        a_permutations = [int(x) for x in permute_list(str(a))]
-        for delta in range(1, 9999):
-            b = a + delta
-            c = b + delta
-            if a > 9999 or b > 9999:
-                continue
-            if not b in a_permutations or not c in a_permutations:
-                continue
-            if not ptester.is_prime(b) or not ptester.is_prime(c):
-                continue
-            if a == 1487 and b == 4817 and c == 8147:
-                continue
-            return "{0}{1}{2}".format(a, b, c)
-    raise RuntimeError("Not found")
+    primesums[0] = primes[0]
+    for i in range(1, len(primes)):
+        primesums[i] = primesums[i-1] + primes[i]
+
+    for start in range(0, len(primes)):
+        for end in range(len(primes)-1, start, -1):
+            ps = primesums[end] - primesums[start]
+            pslen = end - start + 1
+            if ps > max:
+                break
+            if not ps in primes:
+                break
+            if pslen < result_length:
+                break
+            print(start, end)
+            print(ps, pslen)
+            for p in range(start, end+1):
+                print(p, primes[p], primesums[i])
+            result_length = pslen
+            result_sum = ps
+            break
+    return result_sum
 
 if __name__ == "__main__":
     print("Answer: {0}".format(get_answer()))
