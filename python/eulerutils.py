@@ -30,11 +30,7 @@ class Prime:
         List all primes from 2 to a specified value
         """
         self.__ensure_primes(until)
-        for primevalue in self.__primes:
-            if primevalue <= until:
-                yield primevalue
-            else:
-                break
+        return [x for x in self.__primes if x <= until]
 
     def is_prime(self, value):
         """
@@ -71,6 +67,7 @@ class Prime:
                 sieve[i*i::2*i] = [False]*((until-i*i-1)//(2*i)+1)
         return [2] + [i for i in range(3, until, 2) if sieve[i]]
 
+
 class Stopwatch:
     """
     Create a stopwatch for taking elapsed times
@@ -83,14 +80,16 @@ class Stopwatch:
         """
         Start the stopwatch
         """
-        self.current_start = time()
+        if self.current_start is None:
+            self.current_start = time()
 
     def stop(self):
         """
         Stop the stopwatch
         """
-        self.elapsed += time() - self.current_start
-        self.current_start = None
+        if not self.current_start is None:
+            self.elapsed += time() - self.current_start
+            self.current_start = None
 
     def get_elapsed(self):
         """
