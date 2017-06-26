@@ -16,6 +16,22 @@ def permute_list(inputlist):
             for i in range(0, len(item)+1):
                 yield item[0:i] + chunk + item[i:]
 
+
+def binary_search(alist, item):
+    first = 0
+    last = len(alist) - 1
+    found = False
+    while first <= last and not found:
+        midpoint = (first+last)//2
+        if alist[midpoint] == item:
+            return True
+        if item < alist[midpoint]:
+            last = midpoint - 1
+        else:
+            first = midpoint + 1
+    return False
+
+
 class Prime:
     """
     Prime number operations
@@ -39,7 +55,7 @@ class Prime:
         if value < 2:
             raise ValueError("Invalid number to test for prime")
         self.__ensure_primes(value)
-        return value in self.__primes
+        return binary_search(self.__primes, value)
 
     def get_prime_factors(self, value):
         """
