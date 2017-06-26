@@ -92,6 +92,15 @@ class Stopwatch:
         self.elapsed = 0
         self.current_start = None
 
+    @staticmethod
+    def start_new():
+        """
+        Create and start a stopwatch
+        """
+        watch = Stopwatch()
+        watch.start()
+        return watch
+
     def start(self):
         """
         Start the stopwatch
