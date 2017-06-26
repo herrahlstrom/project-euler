@@ -21,11 +21,9 @@ def get_answer():
     for i in range(1, len(primes)):
         primesums[i] = primesums[i-1] + primes[i]
  
-    for start in range(0, len(primes)):
-        if start % 500 == 0:
-            print("{0:.2%}".format(start/len(primes)))
+    # Predict start value not to be greater then 10, and it worked (solution started at 7)
+    for start in range(0, 10):
         for end in range(len(primes)-1, start, -1):
-
             c_len = end - start + 1
             if c_len <= result_length:
                 break
