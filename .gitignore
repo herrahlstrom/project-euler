@@ -1,7 +1,2 @@
 
-*.suo
-
-dotnet/bin/
-dotnet/obj/
-
-python/__pycache__/
+__pycache__/
