@@ -1,5 +1,6 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+<<<<<<< Updated upstream
 	"files.exclude": {
 		"__pycache__": true,
 		".gitignore": true
@@ -9,4 +10,7 @@
 		"vector": "cpp",
 		"limits": "cpp"
 	}
+=======
+
+>>>>>>> Stashed changes
 }
