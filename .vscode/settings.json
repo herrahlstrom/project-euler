@@ -3,5 +3,10 @@
 	"files.exclude": {
 		"__pycache__": true,
 		".gitignore": true
+	},
+	"files.associations": {
+		"iostream": "cpp",
+		"vector": "cpp",
+		"limits": "cpp"
 	}
 }

@@ -4,6 +4,7 @@ Generic helpers for Project Euler
 
 from time import time
 
+
 def permute_list(inputlist):
     """
     Create all permutations of a given list (include strings)
@@ -13,7 +14,7 @@ def permute_list(inputlist):
     else:
         chunk = inputlist[0]
         for item in permute_list(inputlist[1:]):
-            for i in range(0, len(item)+1):
+            for i in range(0, len(item) + 1):
                 yield item[0:i] + chunk + item[i:]
 
 
@@ -22,7 +23,7 @@ def binary_search(alist, item):
     last = len(alist) - 1
     found = False
     while first <= last and not found:
-        midpoint = (first+last)//2
+        midpoint = (first + last) // 2
         if alist[midpoint] == item:
             return True
         if item < alist[midpoint]:
@@ -74,13 +75,13 @@ class Prime:
             self.__primes = list(Prime.__get_primes(until))
             self.__primes_max = until
 
-
     @staticmethod
     def __get_primes(until):
         sieve = [True] * until
-        for i in range(3, int(until**0.5)+1, 2):
+        for i in range(3, int(until**0.5) + 1, 2):
             if sieve[i]:
-                sieve[i*i::2*i] = [False]*((until-i*i-1)//(2*i)+1)
+                sieve[i * i::2 * i] = [False] * \
+                    ((until - i * i - 1) // (2 * i) + 1)
         return [2] + [i for i in range(3, until, 2) if sieve[i]]
 
 
@@ -88,6 +89,7 @@ class Stopwatch:
     """
     Create a stopwatch for taking elapsed times
     """
+
     def __init__(self):
         self.elapsed = 0
         self.current_start = None
@@ -123,4 +125,3 @@ class Stopwatch:
         if self.current_start is None:
             return self.elapsed
         return self.elapsed + time() - self.current_start
-        
